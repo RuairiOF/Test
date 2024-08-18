@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examist Professional Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-purple: #8B5CF6;
+            --primary-green: #10B981;
+            --bg-color: #F3F4F6;
+            --text-color: #1F2937;
+            --card-bg: #FFFFFF;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark-mode {
+            --bg-color: #1F2937;
+            --text-color: #F3F4F6;
+            --card-bg: #374151;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        nav {
+            background-color: var(--card-bg);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-purple);
+        }
+
+        .profile-menu {
+            position: relative;
+        }
+
+        .profile-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .profile-toggle img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-purple);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 0.5rem 0;
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .main-cards {
+            display: grid;
+            grid-template-rows: repeat(2, auto);
+            gap: 2rem;
+        }
+
+        .side-cards {
+            display: grid;
+            grid-template-rows: repeat(3, auto);
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-purple);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .card-content {
+            margin-bottom: 1rem;
+        }
+
+        .card-action {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-purple);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+
+        .card-action:hover {
+            background-color: var(--primary-green);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress {
+            width: 75%;
+            height: 100%;
+            background-color: var(--primary-green);
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <nav>
+            <div class="logo">Examist</div>
+            <div class="profile-menu">
+                <button class="profile-toggle" id="profileToggle" aria-label="Open profile menu">
+                    <img src="https://i.pravatar.cc/150?img=3" alt="Profile">
+                </button>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="#" id="darkModeToggle">Toggle Dark Mode</a>
+                    <a href="#settings">Settings</a>
+                    <a href="#logout">Log Out</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="main-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Study Progress</h2>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>You're making great progress! Keep up the good work.</p>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                    </div>
+                    <a href="#progress" class="card-action">View Detailed Progress</a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Upcoming Exams</h2>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>You have 3 exams scheduled in the next 2 weeks. Time to prepare!</p>
+                    </div>
+                    <a href="#exams" class="card-action">View Exam Schedule</a>
+                </div>
+            </div>
+            <div class="side-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Quick Practice</h2>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 5V3.5L18.5 9H13v-2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>Take a quick quiz to reinforce your learning.</p>
+                    </div>
+                    <a href="#quiz" class="card-action">Start Quiz</a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Study Tools</h2>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>Access our suite of study tools and resources.</p>
+                    </div>
+                    <a href="#tools" class="card-action">Explore Tools</a>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">AI Tutor</h2>
+                        <div class="card-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p>Get personalized help from our AI-powered tutor.</p>
+                    </div>
+                    <a href="#tutor" class="card-action">Start Chat</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const profileToggle = document.getElementById('profileToggle');
+        const profileDropdown = document.getElementById('profileDropdown');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        profileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('active');
+        });
+
+        darkModeToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!profileToggle.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.remove('active');
+            }
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Prevent default behavior only for demo links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.id !== 'darkModeToggle') {
+                    e.preventDefault();
+                    console.log('Navigating to:', link.getAttribute('href'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examist - Login/Signup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'examist-purple': '#8B5CF6',
+                        'examist-green': '#10B981',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .auth-container {
+            background-image: url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .form-container {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group input {
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: #8B5CF6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 0.75rem;
+            top: 0.75rem;
+            color: #718096;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:not(:placeholder-shown) + label {
+            top: -0.5rem;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            color: #8B5CF6;
+            background-color: white;
+            padding: 0 0.25rem;
+        }
+
+        .btn-primary {
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(139, 92, 246, 0.25);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .switch-form-btn {
+            transition: all 0.3s ease;
+        }
+
+        .switch-form-btn:hover {
+            color: #10B981;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-examist-purple">Examist</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Features</a>
+                        <a href="#" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Pricing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="form-container max-w-md w-full space-y-8 p-10 rounded-xl shadow-lg">
+            <div id="loginForm">
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    Welcome Back
+                </h2>
+                <form class="mt-8 space-y-6" action="#" method="POST">
+                    <div class="rounded-md shadow-sm -space-y-px">
+                        <div class="input-group">
+                            <input id="loginEmail" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="loginEmail" class="text-gray-600">Email address</label>
+                        </div>
+                        <div class="input-group">
+                            <input id="loginPassword" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="loginPassword" class="text-gray-600">Password</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn-primary group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-examist-purple hover:bg-examist-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-examist-purple">
+                            Sign in
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account?
+                        <a href="#" id="showSignup" class="switch-form-btn font-medium text-examist-purple hover:text-examist-green">
+                            Sign up
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="signupForm" class="hidden">
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    Create an Account
+                </h2>
+                <form class="mt-8 space-y-6" action="#" method="POST">
+                    <div class="rounded-md shadow-sm -space-y-px">
+                        <div class="input-group">
+                            <input id="signupName" name="name" type="text" autocomplete="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="signupName" class="text-gray-600">Full name</label>
+                        </div>
+                        <div class="input-group">
+                            <input id="signupEmail" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="signupEmail" class="text-gray-600">Email address</label>
+                        </div>
+                        <div class="input-group">
+                            <input id="signupPassword" name="password" type="password" autocomplete="new-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="signupPassword" class="text-gray-600">Password</label>
+                        </div>
+                        <div class="input-group">
+                            <input id="signupConfirmPassword" name="confirm-password" type="password" autocomplete="new-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-examist-purple focus:border-examist-purple focus:z-10 sm:text-sm" placeholder=" ">
+                            <label for="signupConfirmPassword" class="text-gray-600">Confirm password</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn-primary group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-examist-purple hover:bg-examist-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-examist-purple">
+                            Sign up
+                        </button>
+                    </div>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account?
+                        <a href="#" id="showLogin" class="switch-form-btn font-medium text-examist-purple hover:text-examist-green">
+                            Log in
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const showSignup = document.getElementById('showSignup');
+        const showLogin = document.getElementById('showLogin');
+
+        function switchForms(hideForm, showForm) {
+            hideForm.classList.add('hidden');
+            showForm.classList.remove('hidden');
+        }
+
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForms(loginForm, signupForm);
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchForms(signupForm, loginForm);
+        });
+
+        // Form submission handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                console.log('Form submitted:', data);
+                // Here you would typically send a request to your server
+                alert('Form submitted successfully!');
+            });
+        });
+    </script>
+</body>
+</html>

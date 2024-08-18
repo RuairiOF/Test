@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examist - Your Ultimate Leaving Cert Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'examist-purple': '#8B5CF6',
+                        'examist-green': '#10B981',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #8B5CF6, #10B981);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(135deg, #8B5CF6, #10B981);
+        }
+    </style>
+</head>
+<body class="bg-gray-50" x-data="{ mobileMenuOpen: false }">
+    <nav class="bg-white shadow-md sticky top-0 z-50" x-data="{ scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#" class="text-2xl font-bold text-gradient">Examist</a>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#" class="border-examist-purple text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="#features" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Features
+                        </a>
+                        <a href="#pricing" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Pricing
+                        </a>
+                        <a href="#testimonials" class="border-transparent text-gray-500 hover:border-examist-purple hover:text-examist-purple inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Testimonials
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="#" class="text-examist-purple hover:text-examist-green transition font-semibold">Log In</a>
+                    <a href="#" class="ml-8 bg-examist-purple text-white px-4 py-2 rounded-full hover:bg-examist-green transition">Sign Up</a>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-examist-purple" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sm:hidden" id="mobile-menu" x-show="mobileMenuOpen" x-cloak>
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#" class="bg-examist-purple text-white block pl-3 pr-4 py-2 border-l-4 border-examist-purple text-base font-medium">Home</a>
+                <a href="#features" class="text-gray-600 hover:bg-gray-50 hover:border-examist-purple hover:text-examist-purple block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Features</a>
+                <a href="#pricing" class="text-gray-600 hover:bg-gray-50 hover:border-examist-purple hover:text-examist-purple block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Pricing</a>
+                <a href="#testimonials" class="text-gray-600 hover:bg-gray-50 hover:border-examist-purple hover:text-examist-purple block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium">Testimonials</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200">
+                <div class="flex items-center px-4">
+                    <a href="#" class="text-examist-purple hover:text-examist-green transition font-semibold block px-3 py-2 rounded-md text-base font-medium">Log In</a>
+                    <a href="#" class="ml-4 bg-examist-purple text-white px-4 py-2 rounded-full hover:bg-examist-green transition">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="relative bg-white overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                    <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                        <div class="sm:text-center lg:text-left">
+                            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                <span class="block xl:inline">Excel in Your Leaving Cert with</span>
+                                <span class="block text-examist-purple xl:inline">Examist</span>
+                            </h1>
+                            <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                                Unlock your full potential with our comprehensive study platform tailored for Leaving Cert success.
+                            </p>
+                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                                <div class="rounded-md shadow">
+                                    <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-examist-purple hover:bg-examist-green md:py-4 md:text-lg md:px-10">
+                                        Get started
+                                    </a>
+                                </div>
+                                <div class="mt-3 sm:mt-0 sm:ml-3">
+                                    <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-examist-purple bg-examist-green bg-opacity-10 hover:bg-opacity-20 md:py-4 md:text-lg md:px-10">
+                                        Learn more
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>
+            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+                <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Students studying">
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div id="features" class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-examist-purple font-semibold tracking-wide uppercase">Features</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Everything you need to succeed
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Examist provides a comprehensive suite of tools designed to help you excel in your Leaving Cert exams.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-examist-purple text-white">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                                    </svg>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Comprehensive Study Materials</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-500">
+                                Access a vast library of expertly curated notes, practice questions, and past exam papers for all Leaving Cert subjects.
+                            </dd>
+                        </div>
+
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-examist-purple text-white">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">AI-Powered Study Assistant</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-500">
+                                Get personalized help and instant answers to your questions with our advanced AI study assistant.
+                            </dd>
+                        </div>
+
+                        <div class="relative">
+                            <dt>
+                                <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-examist-purple text-white">
+                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Performance Analytics</p>
+                            </dt>
+                            <dd class="mt-2 ml-16 text-base text-gray-500">
+                                Track your progress and identify areas for improvement with our advanced analytics tools.
+                            </dd>
+                        </div>
+                                                <div class="relative">
+                                                    <dt>
+                                                        <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-examist-purple text-white">
+                                                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                        </div>
+                                                        <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Personalized Study Plans</p>
+                                                    </dt>
+                                                    <dd class="mt-2 ml-16 text-base text-gray-500">
+                                                        Create customized study schedules tailored to your goals and learning pace.
+                                                    </dd>
+                                                </div>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Pricing Section -->
+                                <div id="pricing" class="bg-gray-100 py-12">
+                                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                        <div class="lg:text-center">
+                                            <h2 class="text-base text-examist-purple font-semibold tracking-wide uppercase">Pricing</h2>
+                                            <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                                                Choose your study plan
+                                            </p>
+                                            <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                                                Select the perfect plan to boost your Leaving Cert preparation and achieve your academic goals.
+                                            </p>
+                                        </div>
+                        
+                                        <div class="mt-10 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
+                                            <!-- Basic Plan -->
+                                            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                                                <div class="px-6 py-8">
+                                                    <h3 class="text-2xl font-semibold text-gray-900">Basic</h3>
+                                                    <p class="mt-4 text-gray-500">Perfect for students just starting their Leaving Cert journey.</p>
+                                                    <p class="mt-8">
+                                                        <span class="text-4xl font-extrabold text-gray-900">€9.99</span>
+                                                        <span class="text-base font-medium text-gray-500">/month</span>
+                                                    </p>
+                                                    <a href="#" class="mt-8 block w-full bg-examist-purple text-white rounded-md py-2 text-sm font-semibold text-center hover:bg-examist-green transition-colors">Get Started</a>
+                                                </div>
+                                                <div class="px-6 pt-6 pb-8 bg-gray-50">
+                                                    <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wide">What's included</h4>
+                                                    <ul class="mt-6 space-y-4">
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">Access to study notes for all subjects</span>
+                                                        </li>
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">Limited practice exams</span>
+                                                        </li>
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">Basic progress tracking</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                        
+                                            <!-- Premium Plan -->
+                                            <div class="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-examist-purple">
+                                                <div class="px-6 py-8">
+                                                    <h3 class="text-2xl font-semibold text-gray-900">Premium</h3>
+                                                    <p class="mt-4 text-gray-500">For dedicated students aiming for top grades.</p>
+                                                    <p class="mt-8">
+                                                        <span class="text-4xl font-extrabold text-gray-900">€19.99</span>
+                                                        <span class="text-base font-medium text-gray-500">/month</span>
+                                                    </p>
+                                                    <a href="#" class="mt-8 block w-full bg-examist-purple text-white rounded-md py-2 text-sm font-semibold text-center hover:bg-examist-green transition-colors">Upgrade to Premium</a>
+                                                </div>
+                                                <div class="px-6 pt-6 pb-8 bg-gray-50">
+                                                    <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wide">What's included</h4>
+                                                    <ul class="mt-6 space-y-4">
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">All Basic features</span>
+                                                        </li>
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">Unlimited practice exams</span>
+                                                        </li>
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                            </svg>
+                                                            <span class="text-sm text-gray-500">Advanced performance analytics</span>
+                                                        </li>
+                                                        <li class="flex space-x-3">
+                                                            <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />SS
+                                    </svg>
+                                    <span class="text-sm text-gray-500">Personalized study planner</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Ultimate Plan -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="px-6 py-8">
+                            <h3 class="text-2xl font-semibold text-gray-900">Ultimate</h3>
+                            <p class="mt-4 text-gray-500">The complete package for Leaving Cert success.</p>
+                            <p class="mt-8">
+                                <span class="text-4xl font-extrabold text-gray-900">€29.99</span>
+                                <span class="text-base font-medium text-gray-500">/month</span>
+                            </p>
+                            <a href="#" class="mt-8 block w-full bg-examist-purple text-white rounded-md py-2 text-sm font-semibold text-center hover:bg-examist-green transition-colors">Go Ultimate</a>
+                        </div>
+                        <div class="px-6 pt-6 pb-8 bg-gray-50">
+                            <h4 class="text-xs font-semibold text-gray-900 uppercase tracking-wide">What's included</h4>
+                            <ul class="mt-6 space-y-4">
+                                <li class="flex space-x-3">
+                                    <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-sm text-gray-500">All Premium features</span>
+                                </li>
+                                <li class="flex space-x-3">
+                                    <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-sm text-gray-500">1-on-1 tutor sessions (2 hours/month)</span>
+                                </li>
+                                <li class="flex space-x-3">
+                                    <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-sm text-gray-500">Priority AI assistant access</span>
+                                </li>
+                                <li class="flex space-x-3">
+                                    <svg class="flex-shrink-0 h-5 w-5 text-examist-green" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-sm text-gray-500">Exclusive exam preparation workshops</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div id="testimonials" class="py-12 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-base text-examist-purple font-semibold tracking-wide uppercase">Testimonials</h2>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        Hear from our successful students
+                    </p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                        Don't just take our word for it. See what our students have to say about their experience with Examist.
+                    </p>
+                </div>
+
+                <div class="mt-10">
+                    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="bg-gray-50 rounded-xl p-8 shadow-md">
+                            <div class="flex items-center mb-4">
+                                <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Sarah D.">
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">Sarah D.</h4>
+                                    <p class="text-gray-600">Dublin</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"Examist helped me improve my grades across all subjects. The practice exams were incredibly helpful!"</p>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-8 shadow-md">
+                            <div class="flex items-center mb-4">
+                                <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Michael O.">
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">Michael O.</h4>
+                                    <p class="text-gray-600">Cork</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"The study planner feature kept me organized and focused throughout the year. I couldn't have done it without Examist."</p>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-xl p-8 shadow-md">
+                            <div class="flex items-center mb-4">
+                                <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Emma L.">
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-bold text-gray-900">Emma L.</h4>
+                                    <p class="text-gray-600">Galway</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600">"The video tutorials explained complex topics in a way that finally made sense to me. Thank you, Examist!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="bg-examist-purple">
+            <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                    <span class="block">Ready to boost your Leaving Cert preparation?</span>
+                    <span class="block text-examist-green">Start your journey with Examist today.</span>
+                </h2>
+                <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+                    <div class="inline-flex rounded-md shadow">
+                        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-examist-purple bg-white hover:bg-examist-green hover:text-white transition-colors">
+                            Get started
+                        </a>
+                    </div>
+                    <div class="ml-3 inline-flex rounded-md shadow">
+                        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-examist-green hover:bg-white hover:text-examist-purple transition-colors">
+                            Learn more
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+                <div class="space-y-8 xl:col-span-1">
+                    <img class="h-10" src="https://tailwindui.com/img/logos/workflow-mark-gray-300.svg" alt="Company name">
+                    <p class="text-gray-500 text-base">
+                        Empowering Leaving Cert students to achieve their full potential.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-gray-400 hover:text-gray-500">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-gray-400 hover:text-gray-500">
+                            <span class="sr-only">Instagram</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.
+                                Certainly, I'll continue with the footer section and complete the landing page:
+
+```html
+                                .35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-gray-400 hover:text-gray-500">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                                Solutions
+                            </h3>
+                            <ul class="mt-4 space-y-4">
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Study Notes
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Practice Exams
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        AI Tutor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Performance Analytics
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-12 md:mt-0">
+                            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                                Support
+                            </h3>
+                            <ul class="mt-4 space-y-4">
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Pricing
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Documentation
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Guides
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        API Status
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="md:grid md:grid-cols-2 md:gap-8">
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                                Company
+                            </h3>
+                            <ul class="mt-4 space-y-4">
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        About
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Blog
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Jobs
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Press
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-12 md:mt-0">
+                            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                                Legal
+                            </h3>
+                            <ul class="mt-4 space-y-4">
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Privacy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900">
+                                        Terms
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-200 pt-8">
+                <p class="text-base text-gray-400 xl:text-center">
+                    &copy; 2023 Examist, Inc. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    </script>
+</body>
+</html>

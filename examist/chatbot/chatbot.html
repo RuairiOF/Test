@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamistAI - Your Irish Education Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1 id="examistai" class="logo">ExamistAI</h1>
+            <button id="subjectSelector" class="subject-selector" aria-label="Select Subject">
+                <span class="visually-hidden">Select Subject</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg>
+            </button>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+                <span class="visually-hidden">Toggle Dark Mode</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="exitButton" class="exit-button" aria-label="Exit Chat">
+                <span class="visually-hidden">Exit Chat</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </header>
+        <main id="chatMessages" class="chat-messages" role="log" aria-live="polite"></main>
+        <footer class="chat-input-container">
+            <div class="chat-input">
+                <button id="voiceButton" class="voice-button" aria-label="Voice Input">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                </button>
+                <input type="text" id="userInput" placeholder="Type your message..." aria-label="Type your message">
+                <button id="sendButton" class="send-button" aria-label="Send Message">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <div id="subjectModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <h2>Select a Subject</h2>
+            <div id="subjectList" class="subject-list"></div>
+            <button id="closeSubjectModal">Close</button>
+        </div>
+    </div>
+
+    <div id="exitModal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <h2>Are you sure you want to exit?</h2>
+            <p>Your conversation will not be saved.</p>
+            <div class="modal-buttons">
+                <button id="cancelExit">Cancel</button>
+                <button id="confirmExit">Exit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.1/showdown.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
