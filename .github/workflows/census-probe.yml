@@ -1,0 +1,10 @@
+name: Census Compute Probe
+on:
+  pull_request:
+    branches: [main]
+    paths: ['.run-census-probe']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo public-actions-ready
