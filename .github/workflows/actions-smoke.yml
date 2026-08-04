@@ -1,0 +1,16 @@
+name: Public Actions Smoke
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.run-actions-smoke'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Public GitHub Actions runner is available'
