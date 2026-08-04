@@ -11,18 +11,25 @@ on:
       - '.run-census-runner-check'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - run: |
           python --version
           curl --fail --location --max-time 30 https://www.shopify.com/ -o /dev/null
-          echo ready > runner-ready.txt
+          printf 'ready %s\n' "$(date -u +%FT%TZ)" > census-runner-ready.txt
+          git config user.name "census-runner-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add census-runner-ready.txt
+          git commit -m "ci: confirm census runner availability" || exit 0
+          git push origin HEAD:main
       - uses: actions/upload-artifact@v4
         with:
           name: census-runner-ready
-          path: runner-ready.txt
+          path: census-runner-ready.txt
